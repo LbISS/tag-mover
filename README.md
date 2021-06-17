@@ -1,7 +1,7 @@
 # TagMover
 A simple commandline dotnet tool to copy files filtering on metadata.
 
-* Supporting both Windows/*nix systems.
+* Supporting both Windows and *nix systems(not tested).
 * Supporting ID3v2 tags.
 
 ## Comand line parameters
