@@ -26,7 +26,7 @@ namespace TagMover.Filter
 
 		public FilterFunc GetFilterFunction(string filter, string includePattern = null, string excludePattern = null)
 		{
-			_logger.LogDebug($"Starting analyze of filter '{filter}'");
+			_logger.LogTrace($"Starting analyze of filter '{filter}'");
 
 			FilterFunc filterFunction;
 			Regex includeRegexp = !String.IsNullOrEmpty(includePattern) ? new Regex(includePattern, RegexOptions.Compiled) : null;
@@ -48,13 +48,13 @@ namespace TagMover.Filter
 
 				if (parts[1].Equals(Operators.MISSING.ToString()))
 				{
-					_logger.LogDebug($"'{Operators.MISSING}' operator found.");
+					_logger.LogTrace($"'{Operators.MISSING}' operator found.");
 
 					filterFunction = GetOperatorProcessor((Operators)Enum.Parse(typeof(Operators), parts[1])).GetFilterFunction(parts);
 				}
 				else if (parts[1].Equals(Operators.PRESENT.ToString()))
 				{
-					_logger.LogDebug($"'{Operators.PRESENT}' operator found.");
+					_logger.LogTrace($"'{Operators.PRESENT}' operator found.");
 
 					filterFunction = GetOperatorProcessor((Operators)Enum.Parse(typeof(Operators), parts[1])).GetFilterFunction(parts);
 				}

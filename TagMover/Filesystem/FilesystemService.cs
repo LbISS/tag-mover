@@ -6,12 +6,23 @@ namespace TagMover.Filesystem
 	{
 		public bool isDirectory(string path)
 		{
-			return Directory.Exists(path);
+			return Directory.Exists(path) && !File.Exists(path);
 		}
 
-		public void EnsureDirectory(string path)
+		public bool isFileExists(string path)
 		{
-			Directory.CreateDirectory(Path.GetDirectoryName(path));
+			return File.Exists(path);
+		}
+
+		public void EnsureDirectory(string path, bool isFilePath)
+		{
+			if (Directory.Exists(path))
+				return;
+
+			if(isFilePath)
+				Directory.CreateDirectory(Path.GetDirectoryName(path));
+			else 
+				Directory.CreateDirectory(path);
 		}
 
 		public void CopyFile(string sourcePath, string targetPath)

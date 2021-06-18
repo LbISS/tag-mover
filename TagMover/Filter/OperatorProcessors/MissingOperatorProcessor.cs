@@ -30,11 +30,11 @@ namespace TagMover.Filter.OperatorProcessors
 				var success = fieldTag == null;
 				if (success)
 				{
-					_logger.LogDebug($"'{filePath}': file will be copied, '{fieldName}' is missing");
+					_logger.LogTrace($"'{filePath}': file will be copied, '{fieldName}' is missing");
 				}
 				else
 				{
-					_logger.LogDebug($"'{filePath}': file will be skipped, '{fieldName}' is '{String.Join("; ", fieldTag.Text)}'");
+					_logger.LogTrace($"'{filePath}': file will be skipped, '{fieldName}' is '{String.Join("; ", fieldTag.Text)}'");
 				}
 
 				return success;

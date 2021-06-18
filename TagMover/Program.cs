@@ -23,11 +23,6 @@ namespace TagMover
 
 		protected static void RunWithOptions(CommandLineOptions opts, IHost host)
 		{
-			opts.Src = "D:\\Music";
-			opts.Dest = "F:\\";
-			opts.Filter = "IGNOREAUTO MISSING";
-			opts.ExcludePattern = "IGNOREAUTO MISSING";
-
 			var copyService = ActivatorUtilities.GetServiceOrCreateInstance<ICopyService>(host.Services);
 			var filterService = ActivatorUtilities.GetServiceOrCreateInstance<IFilterService>(host.Services);
 

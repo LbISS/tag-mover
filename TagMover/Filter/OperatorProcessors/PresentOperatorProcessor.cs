@@ -30,11 +30,11 @@ namespace TagMover.Filter.OperatorProcessors
 				var success = fieldTag != null;
 				if (success)
 				{
-					_logger.LogDebug($"'{filePath}': filter passed, '{fieldName}' is present('{String.Join("; ", fieldTag.Text)}')");
+					_logger.LogTrace($"'{filePath}': filter passed, '{fieldName}' is present('{String.Join("; ", fieldTag.Text)}')");
 				}
 				else
 				{
-					_logger.LogDebug($"'{filePath}': filter not passed, '{fieldName}' is missing");
+					_logger.LogTrace($"'{filePath}': filter not passed, '{fieldName}' is missing");
 				}
 
 				return success;

@@ -4,7 +4,9 @@
 	{
 		bool isDirectory(string path);
 
-		void EnsureDirectory(string path);
+		bool isFileExists(string path);
+
+		void EnsureDirectory(string path, bool isFilePath);
 
 		void CopyFile(string sourcePath, string targetPath);
 
