@@ -6,7 +6,7 @@ using TagMover.Copy;
 using TagMover.Filesystem;
 using TagMover.Filter;
 using TagMover.Filter.OperatorProcessors;
-using TagMover.TagProcessors;
+using TagMover.Tag;
 
 namespace TagMover
 {
@@ -43,7 +43,8 @@ namespace TagMover
 						.AddTransient<IFilesystemService, FilesystemService>()
 						.AddTransient<IFilterService, FilterService>()
 						.AddTransient<ICopyService, CopyService>()
-						.AddTransient<ID3v2Processor, ID3v2Processor>()
+						.AddTransient<ITagsService, TagsService>()
+						.AddTransient<ITagProcessor, ID3v2Processor>()
 						.AddTransient<IOperatorProcessor, MissingOperatorProcessor>()
 						.AddTransient<IOperatorProcessor, PresentOperatorProcessor>()
 			);

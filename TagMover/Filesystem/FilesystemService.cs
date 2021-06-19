@@ -4,12 +4,12 @@ namespace TagMover.Filesystem
 {
 	public class FilesystemService : IFilesystemService
 	{
-		public bool isDirectory(string path)
+		public bool IsDirectory(string path)
 		{
 			return Directory.Exists(path) && !File.Exists(path);
 		}
 
-		public bool isFileExists(string path)
+		public bool IsFileExists(string path)
 		{
 			return File.Exists(path);
 		}
@@ -38,6 +38,14 @@ namespace TagMover.Filesystem
 		public string[] GetDirectories(string path, bool getAllRecursively = true)
 		{
 			return Directory.GetDirectories(path, "*", getAllRecursively ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
+		}
+
+		public string GetExtension(string path)
+		{
+			if (!File.Exists(path))
+				return null;
+
+			return Path.GetExtension(path);
 		}
 	}
 }

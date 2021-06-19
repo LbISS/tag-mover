@@ -4,23 +4,23 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
 using TagMover.Filter.OperatorProcessors;
-using TagMover.TagProcessors;
+using TagMover.Tag;
 
 namespace TagMover.Filter
 {
 	public class FilterService : IFilterService
 	{
 		protected readonly ILogger<FilterService> _logger;
-		protected readonly ID3v2Processor _id3v2Processor;
+		protected readonly ITagsService _tagsService;
 		protected readonly IEnumerable<IOperatorProcessor> _operatorsProcessors;
 
 		public FilterService(
 			ILogger<FilterService> logger,
-			ID3v2Processor id3v2Processor,
+			ITagsService tagsService,
 			IEnumerable<IOperatorProcessor> operatorsProcessors)
 		{
 			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
-			_id3v2Processor = id3v2Processor ?? throw new ArgumentNullException(nameof(id3v2Processor));
+			_tagsService = tagsService ?? throw new ArgumentNullException(nameof(tagsService));
 			_operatorsProcessors = operatorsProcessors ?? throw new ArgumentNullException(nameof(operatorsProcessors));
 		}
 
@@ -34,7 +34,7 @@ namespace TagMover.Filter
 
 			if (String.IsNullOrEmpty(filter))
 			{
-				filterFunction = (s) => true;
+				filterFunction = (_, _) => true;
 			}
 			else
 			{
@@ -62,16 +62,11 @@ namespace TagMover.Filter
 					throw new InvalidOperationException($"Unsupported filter operator '{parts[1]}'.");
 			}
 
-			return (filePath) =>
+			return (filePath, tags) =>
 			{
 				if (excludeRegexp != null && excludeRegexp.IsMatch(filePath))
 				{
 					_logger.LogDebug($"'{filePath}': file will be skipped, passing exclude pattern.");
-					return false;
-				}
-
-				if (!filterFunction(filePath))
-				{
 					return false;
 				}
 
@@ -81,7 +76,7 @@ namespace TagMover.Filter
 					return false;
 				}
 
-				return true;
+				return filterFunction(filePath, tags);
 			};
 		}
 
