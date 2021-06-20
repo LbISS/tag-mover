@@ -4,6 +4,6 @@ namespace TagMover.Copy
 {
 	public interface ICopyService
 	{
-		void Copy(string sourceFolderPath, string destFolderPath, FilterFunc filter);
+		void Copy(string sourceFolderPath, string destFolderPath, string includePattern, string excludePattern, FilterFunc filter);
 	}
 }

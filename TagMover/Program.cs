@@ -7,6 +7,7 @@ using TagMover.Filesystem;
 using TagMover.Filter;
 using TagMover.Filter.OperatorProcessors;
 using TagMover.Tag;
+using TagMover.Tag.TagProcessors;
 
 namespace TagMover
 {
@@ -26,9 +27,9 @@ namespace TagMover
 			var copyService = ActivatorUtilities.GetServiceOrCreateInstance<ICopyService>(host.Services);
 			var filterService = ActivatorUtilities.GetServiceOrCreateInstance<IFilterService>(host.Services);
 
-			var filterFunction = filterService.GetFilterFunction(opts.Filter, opts.IncludePattern, opts.ExcludePattern);
+			var filterFunction = filterService.GetFilterFunction(opts.Filter);
 
-			copyService.Copy(opts.Src, opts.Dest, filterFunction);
+			copyService.Copy(opts.Src, opts.Dest, opts.IncludePattern, opts.ExcludePattern, filterFunction);
 		}
 
 		protected static void HandleOptionsError(IEnumerable<Error> errs)
@@ -40,13 +41,15 @@ namespace TagMover
 			Host.CreateDefaultBuilder(args)
 				.ConfigureServices((_, services) =>
 						services
-						.AddTransient<IFilesystemService, FilesystemService>()
-						.AddTransient<IFilterService, FilterService>()
-						.AddTransient<ICopyService, CopyService>()
-						.AddTransient<ITagsService, TagsService>()
-						.AddTransient<ITagProcessor, ID3v2Processor>()
-						.AddTransient<IOperatorProcessor, MissingOperatorProcessor>()
-						.AddTransient<IOperatorProcessor, PresentOperatorProcessor>()
+						.AddSingleton<IFilesystemService, FilesystemService>()
+						.AddSingleton<IFilterService, FilterService>()
+						.AddSingleton<ICopyService, CopyService>()
+						.AddSingleton<ITagsService, TagsService>()
+						.AddSingleton<ISpecificTagProcessor, ID3v2Processor>()
+						.AddSingleton<ISpecificTagProcessor, AsfProcessor>()
+						.AddSingleton<BaseTagProcessor, BaseTagProcessor>()
+						.AddSingleton<IOperatorProcessor, MissingOperatorProcessor>()
+						.AddSingleton<IOperatorProcessor, PresentOperatorProcessor>()
 			);
 	}
 

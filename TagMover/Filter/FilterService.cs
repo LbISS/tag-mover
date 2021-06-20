@@ -1,36 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
 using TagMover.Filter.OperatorProcessors;
-using TagMover.Tag;
 
 namespace TagMover.Filter
 {
 	public class FilterService : IFilterService
 	{
 		protected readonly ILogger<FilterService> _logger;
-		protected readonly ITagsService _tagsService;
 		protected readonly IEnumerable<IOperatorProcessor> _operatorsProcessors;
 
 		public FilterService(
 			ILogger<FilterService> logger,
-			ITagsService tagsService,
 			IEnumerable<IOperatorProcessor> operatorsProcessors)
 		{
 			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
-			_tagsService = tagsService ?? throw new ArgumentNullException(nameof(tagsService));
 			_operatorsProcessors = operatorsProcessors ?? throw new ArgumentNullException(nameof(operatorsProcessors));
 		}
 
-		public FilterFunc GetFilterFunction(string filter, string includePattern = null, string excludePattern = null)
+		public FilterFunc GetFilterFunction(string filter)
 		{
-			_logger.LogTrace($"Starting analyze of filter '{filter}'");
+			_logger.LogTrace($"Starting analyzing filter '{filter}'");
 
 			FilterFunc filterFunction;
-			Regex includeRegexp = !String.IsNullOrEmpty(includePattern) ? new Regex(includePattern, RegexOptions.Compiled) : null;
-			Regex excludeRegexp = !String.IsNullOrEmpty(excludePattern) ? new Regex(excludePattern, RegexOptions.Compiled) : null;
 
 			if (String.IsNullOrEmpty(filter))
 			{
@@ -62,22 +55,7 @@ namespace TagMover.Filter
 					throw new InvalidOperationException($"Unsupported filter operator '{parts[1]}'.");
 			}
 
-			return (filePath, tags) =>
-			{
-				if (excludeRegexp != null && excludeRegexp.IsMatch(filePath))
-				{
-					_logger.LogDebug($"'{filePath}': file will be skipped, passing exclude pattern.");
-					return false;
-				}
-
-				if (includeRegexp != null && !includeRegexp.IsMatch(filePath))
-				{
-					_logger.LogDebug($"'{filePath}': file will be skipped, not passing include pattern.");
-					return false;
-				}
-
-				return filterFunction(filePath, tags);
-			};
+			return filterFunction;
 		}
 
 		protected IOperatorProcessor GetOperatorProcessor(Operators oper)

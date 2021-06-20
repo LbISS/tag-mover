@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Logging;
 using TagMover.Filesystem;
+using TagMover.Tag.TagProcessors;
 
 namespace TagMover.Tag
 {
@@ -18,15 +19,18 @@ namespace TagMover.Tag
 	{
 		protected readonly ILogger<TagsService> _logger;
 		protected readonly IFilesystemService _filesystemService;
-		protected readonly IEnumerable<ITagProcessor> _tagsProcessors;
+		protected readonly IEnumerable<ISpecificTagProcessor> _tagsProcessors;
+		protected readonly BaseTagProcessor _baseTagProcessor;
 
 		public TagsService(IFilesystemService filesystemService,
 			ILogger<TagsService> logger,
-			IEnumerable<ITagProcessor> tagsProcessors)
+			IEnumerable<ISpecificTagProcessor> tagsProcessors,
+			BaseTagProcessor baseTagProcessor)
 		{
 			_filesystemService = filesystemService ?? throw new ArgumentNullException(nameof(filesystemService));
 			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
 			_tagsProcessors = tagsProcessors ?? throw new ArgumentNullException(nameof(tagsProcessors));
+			_baseTagProcessor = baseTagProcessor ?? throw new ArgumentNullException(nameof(baseTagProcessor));
 		}
 
 		public FileTags GetFileTags(string filePath)
@@ -37,6 +41,7 @@ namespace TagMover.Tag
 				_logger.LogInformation($"{filePath} is directory or doesn't have extension.");
 				return null;
 			}
+
 			var processors = this.GetTagProcessorsForExtension(extension);
 			if (processors == null || processors.Count == 0)
 			{
@@ -64,7 +69,8 @@ Images: bmp, gif, jpeg, pbm, pgm, ppm, pnm, pcx, png, tiff, dng, svg*/
 
 		protected List<ITagProcessor> GetTagProcessorsForExtension(string extension)
 		{
-			return _tagsProcessors.Where(w => w.SupportedExtensions.Contains(extension.ToLower())).ToList();
+			var processors = _tagsProcessors.Where(w => w.SupportedExtensions.Contains(extension.ToLower())).Select(s => s as ITagProcessor).ToList();
+			return processors.Count != 0 ? processors : new List<ITagProcessor> { this._baseTagProcessor };
 		}
 	}
 }
