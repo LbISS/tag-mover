@@ -52,7 +52,7 @@ namespace TagMover.Tag.TagProcessors
 		protected FileTags GetAllTags(TagLib.Asf.Tag tag)
 		{
 			var res = tag
-						?.GetDescriptors()
+						.GetDescriptors()
 						?.ToDictionary(
 							k =>
 							{
@@ -64,7 +64,7 @@ namespace TagMover.Tag.TagProcessors
 							}
 						);
 
-			return new FileTags(res);
+			return new FileTags(res ?? new Dictionary<string, string>());
 		}
 	}
 }

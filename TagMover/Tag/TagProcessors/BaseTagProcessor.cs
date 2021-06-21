@@ -50,7 +50,8 @@ namespace TagMover.Tag.TagProcessors
 			foreach (var prop in virtualPublicProps)
 			{
 				var value = prop.GetValue(tag);
-				if (value != null)
+				var isCollection = IsPropertyACollection(prop);
+				if (value != null && (!isCollection || ((IEnumerable<object>)value).Any()))
 				{
 					res.Add(
 						prop.Name,

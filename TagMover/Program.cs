@@ -47,6 +47,7 @@ namespace TagMover
 						.AddSingleton<ITagsService, TagsService>()
 						.AddSingleton<ISpecificTagProcessor, ID3v2Processor>()
 						.AddSingleton<ISpecificTagProcessor, AsfProcessor>()
+						.AddSingleton<ISpecificTagProcessor, XiphProcessor>()
 						.AddSingleton<BaseTagProcessor, BaseTagProcessor>()
 						.AddSingleton<IOperatorProcessor, MissingOperatorProcessor>()
 						.AddSingleton<IOperatorProcessor, PresentOperatorProcessor>()
