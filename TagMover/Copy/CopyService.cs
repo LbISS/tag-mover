@@ -8,6 +8,10 @@ using TagMover.Tag;
 
 namespace TagMover.Copy
 {
+	/// <summary>
+	/// Service responsible for copy logic
+	/// </summary>
+	/// <seealso cref="TagMover.Copy.ICopyService" />
 	public class CopyService : ICopyService
 	{
 		protected readonly ILogger<CopyService> _logger;

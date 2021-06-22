@@ -2,6 +2,10 @@
 
 namespace TagMover.Tag
 {
+	/// <summary>
+	/// Reading specific tags from files
+	/// </summary>
+	/// <seealso cref="TagMover.Tag.ITagProcessor" />
 	public interface ISpecificTagProcessor : ITagProcessor
 	{
 		/// <summary>

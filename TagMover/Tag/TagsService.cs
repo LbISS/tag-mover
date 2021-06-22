@@ -7,14 +7,10 @@ using TagMover.Tag.TagProcessors;
 
 namespace TagMover.Tag
 {
-	public enum MediaTypes
-	{
-		Audio,
-		Video,
-		Image
-	}
-
-
+	/// <summary>
+	/// Service responsible for gettings metadata tags from files
+	/// </summary>
+	/// <seealso cref="TagMover.Tag.ITagsService" />
 	public class TagsService : ITagsService
 	{
 		protected readonly ILogger<TagsService> _logger;
@@ -33,6 +29,11 @@ namespace TagMover.Tag
 			_baseTagProcessor = baseTagProcessor ?? throw new ArgumentNullException(nameof(baseTagProcessor));
 		}
 
+		/// <summary>
+		/// Gets the file tags for the file.
+		/// </summary>
+		/// <param name="filePath">The file path.</param>
+		/// <returns></returns>
 		public FileTags GetFileTags(string filePath)
 		{
 			var extension = _filesystemService.GetExtension(filePath);

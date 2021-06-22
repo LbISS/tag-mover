@@ -2,11 +2,15 @@
 using System.Text.RegularExpressions;
 using Antlr4.Runtime.Misc;
 using Microsoft.Extensions.Logging;
-using TagMover.Tag;
 using static FilterQueryParser;
 
 namespace TagMover.Filter
 {
+	/// <summary>
+	/// Query visitor for AntlrFilterService
+	/// </summary>
+	/// <seealso cref="FilterQueryBaseVisitor{TagMover.Filter.FilterFunc}" />
+	/// <seealso cref="AntlrFilterService" />
 	public class AntlrFilterQueryVisitor : FilterQueryBaseVisitor<FilterFunc>
 	{
 		protected readonly ILogger<AntlrFilterQueryVisitor> _logger;

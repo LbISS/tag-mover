@@ -1,6 +1,6 @@
 # TagMover
 A simple commandline dotnet tool to copy files filtering on metadata.
-Basically, wehn you need to copy some subset of your files based on their metadata/tags - that's it.
+Basically, when you need to copy some subset of your files based on their metadata/tags - that's it.
 
 * Supporting both Windows and *nix systems(not tested).
 * Supporting ID3v2, Xiph, Asf tags.

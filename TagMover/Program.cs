@@ -12,6 +12,8 @@ namespace TagMover
 {
 	public class Program
 	{
+		/// <summary>Defines the entry point of the application.</summary>
+		/// <param name="args">The arguments.</param>
 		public static void Main(string[] args)
 		{
 			var host = CreateHostBuilder(args).Build();
@@ -21,6 +23,9 @@ namespace TagMover
 				  .WithNotParsed(HandleOptionsError);
 		}
 
+		/// <summary>Runs main algorithm with the cmd options.</summary>
+		/// <param name="opts">The cmd options.</param>
+		/// <param name="host">The host.</param>
 		protected static void RunWithOptions(CommandLineOptions opts, IHost host)
 		{
 			var copyService = ActivatorUtilities.GetServiceOrCreateInstance<ICopyService>(host.Services);
@@ -31,11 +36,20 @@ namespace TagMover
 			copyService.Copy(opts.Src, opts.Dest, opts.IncludePattern, opts.ExcludePattern, filterFunction);
 		}
 
+		/// <summary>
+		/// Handles the cmd options error.
+		/// </summary>
+		/// <param name="errs">The errors.</param>
 		protected static void HandleOptionsError(IEnumerable<Error> errs)
 		{
 			//No specific handling for now
 		}
 
+		/// <summary>
+		/// Creates the host builder.
+		/// </summary>
+		/// <param name="args">The cmd arguments.</param>
+		/// <returns></returns>
 		public static IHostBuilder CreateHostBuilder(string[] args) =>
 			Host.CreateDefaultBuilder(args)
 				.ConfigureServices((_, services) =>
@@ -52,15 +66,18 @@ namespace TagMover
 			);
 	}
 
+	/// <summary>
+	/// Class for commandLine options
+	/// </summary>
 	public class CommandLineOptions
 	{
-		[Option('s', "src", Required = false, HelpText = "Source folder.")]
+		[Option('s', "src", Required = true, HelpText = "Source folder.")]
 		public string Src { get; set; }
 
-		[Option('d', "dest", Required = false, HelpText = "Destination folder.")]
+		[Option('d', "dest", Required = true, HelpText = "Destination folder.")]
 		public string Dest { get; set; }
 
-		[Option('f', "filter", Required = false, HelpText = "Filter string. More info in readme.")]
+		[Option('f', "filter", Required = true, HelpText = "Filter string. More info in readme.")]
 		public string Filter { get; set; }
 
 		[Option('i', "include", Required = false, HelpText = "Include pattern for filepath - regexp format. Files will be copied only if they are passing both filter and pattern.")]

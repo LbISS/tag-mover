@@ -5,6 +5,11 @@ using Microsoft.Extensions.Logging;
 
 namespace TagMover.Tag.TagProcessors
 {
+	/// <summary>
+	/// Processor for reading Asf tags from files - e.g. .wma
+	/// </summary>
+	/// <seealso cref="TagMover.Tag.TagProcessors.BaseTagProcessor" />
+	/// <seealso cref="TagMover.Tag.ISpecificTagProcessor" />
 	public class AsfProcessor : BaseTagProcessor, ISpecificTagProcessor
 	{
 		protected readonly ILogger<AsfProcessor> _logger;

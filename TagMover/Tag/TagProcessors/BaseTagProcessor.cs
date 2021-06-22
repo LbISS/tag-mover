@@ -6,6 +6,10 @@ using System.Reflection;
 
 namespace TagMover.Tag.TagProcessors
 {
+	/// <summary>
+	/// Base processor allowing to read tags from any file not covered by any other specific processor
+	/// </summary>
+	/// <seealso cref="TagMover.Tag.ITagProcessor" />
 	public class BaseTagProcessor : ITagProcessor
 	{
 		public virtual FileTags GetTags(string filePath)

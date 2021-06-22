@@ -4,6 +4,10 @@ using Microsoft.Extensions.Logging;
 
 namespace TagMover.Filter
 {
+	/// <summary>
+	/// Service to read passed filter string and convert to filter function based on Antlr
+	/// </summary>
+	/// <seealso cref="TagMover.Filter.IFilterService" />
 	public class AntlrFilterService : IFilterService
 	{
 		protected readonly ILogger<AntlrFilterService> _logger;

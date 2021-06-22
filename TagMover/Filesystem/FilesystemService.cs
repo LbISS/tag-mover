@@ -2,6 +2,10 @@
 
 namespace TagMover.Filesystem
 {
+	/// <summary>
+	/// Abstraction on filesystem to isolate possible specific issues.
+	/// </summary>
+	/// <seealso cref="TagMover.Filesystem.IFilesystemService" />
 	public class FilesystemService : IFilesystemService
 	{
 		public bool IsDirectory(string path)

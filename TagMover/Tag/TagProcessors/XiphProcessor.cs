@@ -5,6 +5,11 @@ using Microsoft.Extensions.Logging;
 
 namespace TagMover.Tag.TagProcessors
 {
+	/// <summary>
+	/// Processor for reading Xiph comments from files - e.g. .ogg
+	/// </summary>
+	/// <seealso cref="TagMover.Tag.TagProcessors.BaseTagProcessor" />
+	/// <seealso cref="TagMover.Tag.ISpecificTagProcessor" />
 	public class XiphProcessor : BaseTagProcessor, ISpecificTagProcessor
 	{
 		protected readonly ILogger<XiphProcessor> _logger;

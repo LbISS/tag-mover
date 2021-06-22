@@ -5,6 +5,11 @@ using Microsoft.Extensions.Logging;
 
 namespace TagMover.Tag.TagProcessors
 {
+	/// <summary>
+	/// Processor for reading ID3v2 tags from files - e.g. .mp3
+	/// </summary>
+	/// <seealso cref="TagMover.Tag.TagProcessors.BaseTagProcessor" />
+	/// <seealso cref="TagMover.Tag.ISpecificTagProcessor" />
 	public class ID3v2Processor : BaseTagProcessor, ISpecificTagProcessor
 	{
 		protected readonly ILogger<ID3v2Processor> _logger;
