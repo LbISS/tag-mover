@@ -5,7 +5,6 @@ using Microsoft.Extensions.Hosting;
 using TagMover.Copy;
 using TagMover.Filesystem;
 using TagMover.Filter;
-using TagMover.Filter.OperatorProcessors;
 using TagMover.Tag;
 using TagMover.Tag.TagProcessors;
 
@@ -42,15 +41,14 @@ namespace TagMover
 				.ConfigureServices((_, services) =>
 						services
 						.AddSingleton<IFilesystemService, FilesystemService>()
-						.AddSingleton<IFilterService, FilterService>()
+						.AddSingleton<IFilterService, AntlrFilterService>()
+						.AddSingleton<AntlrFilterQueryVisitor, AntlrFilterQueryVisitor>()
 						.AddSingleton<ICopyService, CopyService>()
 						.AddSingleton<ITagsService, TagsService>()
 						.AddSingleton<ISpecificTagProcessor, ID3v2Processor>()
 						.AddSingleton<ISpecificTagProcessor, AsfProcessor>()
 						.AddSingleton<ISpecificTagProcessor, XiphProcessor>()
 						.AddSingleton<BaseTagProcessor, BaseTagProcessor>()
-						.AddSingleton<IOperatorProcessor, MissingOperatorProcessor>()
-						.AddSingleton<IOperatorProcessor, PresentOperatorProcessor>()
 			);
 	}
 

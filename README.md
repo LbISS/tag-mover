@@ -28,9 +28,18 @@ https://wiki.hydrogenaud.io/index.php?title=Foobar2000:Query_syntax
 https://help.mp3tag.de/main_filter.html
 
 Supported commands:
-* PRESENT / MISSING - for ID3v2 custom metadata fields (TXXX frame)
+* AND / OR / () / NOT
+* PRESENT / MISSING
+* HAS / IS
+* GREATER / EQUAL / LESS
+* MATCHES
 
 ## Example
 ```
 TagMover.exe -s C:\\Folder1 -d F:\\ -f "IGNOREAUTO MISSING" -i "\/(music|sound)\/.*" -e "\/(lyrics)\/.*"
 ```
+
+## For developers
+On changing Antlr grammar (.g4 file) it's needed to
+1) Install Antlr4 according to official guide https://github.com/antlr/antlr4
+2) Run getCSharp.bat (or copy & use commands from it in *Nix systems)

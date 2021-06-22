@@ -1,0 +1,1 @@
+java org.antlr.v4.Tool -Dlanguage=CSharp -o Generated FilterQuery.g4 -no-listener -visitor
