@@ -6,6 +6,11 @@ Basically, when you need to copy some subset of your files based on their metada
 * Supporting ID3v2, Xiph, Asf tags.
 * Supporting mp3, wav, ogg, wma, etc.
 
+## Install
+1. Install dotnet runtime for your system - v.5.0 or higher. (https://dotnet.microsoft.com/download)
+2. Unpack release to any folder.
+3. Run TagMover.exe from command line.
+
 ## Comand line parameters
 ```
 -s, --src     Required. Source folder.
