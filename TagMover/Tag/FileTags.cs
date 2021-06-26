@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace TagMover.Tag
 {
@@ -8,8 +9,8 @@ namespace TagMover.Tag
 	/// <seealso cref="System.Collections.Generic.Dictionary{System.String, System.String}" />
 	public class FileTags : Dictionary<string, string>
 	{
-		public FileTags() : base() { }
-		public FileTags(IDictionary<string, string> dictionary) : base(dictionary) { }
+		public FileTags() : base(StringComparer.CurrentCultureIgnoreCase) { }
+		public FileTags(IDictionary<string, string> dictionary) : base(dictionary, StringComparer.CurrentCultureIgnoreCase) { }
 
 		/// <summary>
 		/// Merges the specified new tags into existing object.
